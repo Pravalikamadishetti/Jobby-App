@@ -60,7 +60,7 @@ class Jobs extends Component {
     jobsList: [],
     apiProfileStatus: apiStatusConstants.initial,
     apiJobsStatus: apiStatusConstants.initial,
-    activeEmploymentTypeId: [],
+    activeEmploymentTypeIds: [],
     activeSalaryRangeId: '',
     searchInput: '',
   }
@@ -101,11 +101,11 @@ class Jobs extends Component {
     this.setState({apiJobsStatus: apiStatusConstants.inProgress})
     const jwtToken = Cookies.get('jwt_token')
     const {
-      activeEmploymentTypeId,
+      activeEmploymentTypeIds,
       activeSalaryRangeId,
       searchInput,
     } = this.state
-    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${activeEmploymentTypeId}&minimum_package=${activeSalaryRangeId}&search=${searchInput}`
+    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${activeEmploymentTypeIds}&minimum_package=${activeSalaryRangeId}&search=${searchInput}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -117,7 +117,7 @@ class Jobs extends Component {
       const fetchedJobsData = await response.json()
       const updatedJobsData = fetchedJobsData.jobs.map(job => ({
         companyLogoUrl: job.company_logo_url,
-        employementType: job.employment_type,
+        employmentType: job.employment_type,
         id: job.id,
         jobDescription: job.job_description,
         location: job.location,
@@ -166,7 +166,7 @@ class Jobs extends Component {
 
     return (
       <div className="profile-container">
-        <img src={profileImageUrl} alt="profile" className="profile" />
+        <img src={profileImageUrl} alt="profile" className="profile-image" />
         <h1 className="profile-name">{name}</h1>
         <p className="short-bio">{shortBio}</p>
       </div>
@@ -188,20 +188,55 @@ class Jobs extends Component {
     }
   }
 
+  onUpdateEmploymentTypeId = (isChecked, id) => {
+    const {activeEmploymentTypeIds} = this.state
+
+    if (isChecked) {
+      this.setState(
+        {
+          activeEmploymentTypeIds: [...activeEmploymentTypeIds, id],
+        },
+        this.getJobs,
+      )
+    } else {
+      const updatedEmploymentTypeIds = activeEmploymentTypeIds.filter(
+        each => each !== id,
+      )
+
+      this.setState(
+        {
+          activeEmploymentTypeIds: [...updatedEmploymentTypeIds],
+        },
+        this.getJobs,
+      )
+    }
+  }
+
+  onChangeSalaryRange = event => {
+    this.setState({activeSalaryRangeId: event.target.id}, this.getJobs)
+  }
+
   renderTypeOfEmployment = () => (
     <ul className="filters-list-container">
-      {employmentTypesList.map(eachType => (
-        <li className="filter-container" key={eachType.employmentTypeId}>
-          <input
-            type="checkbox"
-            id={eachType.employmentTypeId}
-            className="input-filter"
-          />
-          <label htmlFor={eachType.employmentTypeId} className="label">
-            {eachType.label}
-          </label>
-        </li>
-      ))}
+      {employmentTypesList.map(eachType => {
+        const onChangeCheckbox = event => {
+          const isChecked = event.target.checked
+          this.onUpdateEmploymentTypeId(isChecked, eachType.employmentTypeId)
+        }
+        return (
+          <li className="filter-container" key={eachType.employmentTypeId}>
+            <input
+              type="checkbox"
+              id={eachType.employmentTypeId}
+              className="input-filter"
+              onChange={onChangeCheckbox}
+            />
+            <label htmlFor={eachType.employmentTypeId} className="label">
+              {eachType.label}
+            </label>
+          </li>
+        )
+      })}
     </ul>
   )
 
@@ -211,8 +246,11 @@ class Jobs extends Component {
         <li className="filter-container" key={eachItem.salaryRangeId}>
           <input
             type="radio"
-            className="input-filter"
+            className="input-filter "
+            value={eachItem.label}
             id={eachItem.salaryRangeId}
+            name="salaryRange"
+            onChange={this.onChangeSalaryRange}
           />
           <label htmlFor={eachItem.salaryRangeId} className="label">
             {eachItem.label}

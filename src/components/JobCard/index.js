@@ -11,7 +11,7 @@ const JobCard = props => {
     title,
     rating,
     companyLogoUrl,
-    employementType,
+    employmentType,
     jobDescription,
     location,
     packagePerAnnum,
@@ -43,8 +43,8 @@ const JobCard = props => {
                 <p className="location">{location}</p>
               </div>
               <div className="job-type-container">
-                <FaSuitcase color="white" size={22} />
-                <p className="employement-type">{employementType}</p>
+                <FaSuitcase color="white" size={23} />
+                <p className="employment-type">{employmentType}</p>
               </div>
             </div>
             <p className="package">{packagePerAnnum}</p>

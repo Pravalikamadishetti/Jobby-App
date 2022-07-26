@@ -48,15 +48,31 @@
   padding-top: 28px;
   padding-left: 16px;
   padding-bottom: 24px;
+  padding-right: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.profile-image {
+  width: 60px;
 }
 
 .profile-name {
   color: #6366f1;
   font-family: 'Roboto';
   font-size: 24px;
+  font-weight: 600;
+  margin-top: 10px;
 }
+
+.short-bio {
+  color: #7e858e;
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
 .profile-failure-container {
   display: flex;
   justify-content: center;

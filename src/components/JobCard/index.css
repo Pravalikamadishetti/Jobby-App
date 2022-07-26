@@ -29,7 +29,7 @@
 .company-logo {
   width: 60px;
   height: 60px;
-  margin: 10px;
+  margin-right: 20px;
 }
 
 .title-and-rating-container {
@@ -41,6 +41,7 @@
   color: white;
   font-family: 'Roboto';
   font-size: 24px;
+  font-weight: 500;
   margin: 0;
   margin-top: 15px;
 }
@@ -53,7 +54,7 @@
 .rating {
   color: white;
   font-family: 'Roboto';
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   margin-left: 5px;
 }
@@ -61,6 +62,7 @@
 .location-and-job-type-and-package-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .location-and-job-type-container {
@@ -77,8 +79,8 @@
 .location {
   color: #cbd5e1;
   font-family: 'Roboto';
-  font-size: 14px;
-  margin-left: 5px;
+  font-size: 16px;
+  margin-left: 10px;
 }
 
 .job-type-container {
@@ -86,11 +88,11 @@
   align-items: center;
 }
 
-.employement-type {
+.employment-type {
   color: #cbd5e1;
   font-family: 'Roboto';
-  font-size: 14px;
-  margin-left: 5px;
+  font-size: 16px;
+  margin-left: 10px;
 }
 
 .horizontal-line {
@@ -101,17 +103,23 @@
 .package {
   color: white;
   font-family: 'Roboto';
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .description-title {
-  color: white;
+  color: #f1f5f9;
   font-family: 'Roboto';
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 500;
   margin: 0;
-  margin-top: 10px;
+  margin-top: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .description-title {
+    font-size: 22px;
+  }
 }
 
 .job-description {
@@ -119,4 +127,10 @@
   font-family: 'Roboto';
   font-size: 16px;
   line-height: 1.8;
+}
+
+@media screen and (min-width: 768px) {
+  .job-description {
+    font-size: 18px;
+  }
 }
